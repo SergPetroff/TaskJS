@@ -1,32 +1,27 @@
-var clickItem = function (el){
+(function(){
+	//Получаем все кнопки
+	var buttons = document.getElementsByClassName("btn_item")
 
-	// Получаем заголовок записи
-	var accardItem = el.closest(".accardeon_item")
-
-	// Получаем все списки с конентом и скрываем их
-	var arrContentList = document.getElementsByClassName("item_contentlist");
-
-	changeStateitem(el)
-
-	function changeStateitem(el){
-		// Получаем список с контентом
-		var contentList = el.closest(".accardeon_item").getElementsByClassName("item_contentlist")[0]
+	var changeState = function(e){
+		// Получаем текущий блок
+		var thisBtn = this;
 		// Получаем заголовок записи
-		var titleItem = el.closest(".accardeon_item")
-		// Получаем все списки контента всех элементоа
+		var accardItem = thisBtn.parentElement.parentElement;
+		// Получаем все вложенные списки с конентом 
 		var allContentLists = document.getElementsByClassName("item_contentlist");
 
-		
-		
+		// Получаем список с контентом текущего блока
+		var contentList = accardItem.getElementsByClassName("item_contentlist")[0]
+
 		if (!contentList.classList.contains("active")) {
 
 			// закрываем все открытые списки
 			
 			for (var i = 0; i < allContentLists.length; i++) {
 		
-				var currentContentList = arrContentList[i],
-					currenttitleItem = arrContentList[i].closest(".accardeon_item"),
-					currentBtnItem = arrContentList[i].closest(".accardeon_item").querySelectorAll(".btn_item");					
+				var currentContentList = allContentLists[i],
+					currenttitleItem = allContentLists[i].parentElement;
+					currentBtnItem = allContentLists[i].parentElement.querySelectorAll(".btn_item");					
 					
 				if (currentContentList.classList.contains("active")) {
 
@@ -50,25 +45,35 @@ var clickItem = function (el){
 			contentList.classList.add("active")
 
 			// меняем цвет заголовка текущего элемента
-			titleItem.classList.add("active")
+			accardItem.classList.add("active")
 
 			//меняем кнопку треугольник текущего элемента
-			el.classList.remove('btn_triangle')
-			el.classList.add('btn_triangle_active')
+			thisBtn.classList.remove('btn_triangle')
+			thisBtn.classList.add('btn_triangle_active')
 		}else{
 			//Закрываем список
 			contentList.classList.remove("active")
 			contentList.classList.add("close")
 
 			// меняем цвет заголовка
-			titleItem.classList.remove("active")
+			accardItem.classList.remove("active")
 
 
 			//меняем кнопку треугольник
-			el.classList.remove('btn_triangle_active')
-			el.classList.add('btn_triangle')
+			thisBtn.classList.remove('btn_triangle_active')
+			thisBtn.classList.add('btn_triangle')
 			
 		}
+
 	}
 
-}
+
+	// присваиваем каждой кнопке событие
+	for (var i = 0; i < buttons.length; i++) {
+		buttons[i].addEventListener('click',changeState);
+	}
+
+})();
+
+
+
