@@ -1,6 +1,6 @@
-(function(){
+;(function(){
 	//Получаем все кнопки
-	var buttons = document.getElementsByClassName("btn_item")
+	var buttons = document.getElementsByClassName("btn_item");
 
 	var changeState = function(e){
 		// Получаем текущий блок
@@ -65,7 +65,7 @@
 			
 		}
 
-	}
+	};
 
 
 	// присваиваем каждой кнопке событие
